@@ -1,13 +1,19 @@
 /*
- * tokenizer.c asdf jkl;
+ * tokenizer.c
  */
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 /*
  * Tokenizer type.  You need to fill in the type as part of your implementation.
  */
 
 struct TokenizerT_ {
+    
+    long stringLength;
+    char *string;
+    
 };
 
 typedef struct TokenizerT_ TokenizerT;
@@ -28,7 +34,16 @@ typedef struct TokenizerT_ TokenizerT;
 
 TokenizerT *TKCreate( char * ts ) {
     
-    return NULL;
+    TokenizerT *token = malloc(sizeof(TokenizerT));
+    
+    token->string = ts;
+    token->stringLength = strlen(ts);
+    
+    if (token != NULL) {  /* UNSURE of use of null */
+        return token;
+    }else{
+        return NULL;
+    }
 }
 
 /*
@@ -39,6 +54,9 @@ TokenizerT *TKCreate( char * ts ) {
  */
 
 void TKDestroy( TokenizerT * tk ) {
+    
+    free(tk);
+    
 }
 
 /*
@@ -66,6 +84,8 @@ char *TKGetNextToken( TokenizerT * tk ) {
  */
 
 int main(int argc, char **argv) {
+    
+    TKCreate(argv[1]);
     
     return 0;
 }
