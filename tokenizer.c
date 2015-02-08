@@ -2,8 +2,9 @@
  * tokenizer.c
  */
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include <string.h> /* is needed for strlen() */
+#include <stdlib.h> /* is needed for malloc() */
+#include <ctype.h> /* is needed for isdigit, isupper, islower */
 
 /*
  * Tokenizer type.  You need to fill in the type as part of your implementation.
@@ -11,8 +12,9 @@
 
 struct TokenizerT_ {
     
-    long stringLength;
+    long stringLength; 
     char *string;
+    int numTokens; /* represents number of tokens in string */
     
 };
 
@@ -73,6 +75,8 @@ void TKDestroy( TokenizerT * tk ) {
 
 char *TKGetNextToken( TokenizerT * tk ) {
     
+    
+    
     return NULL;
 }
 
@@ -85,7 +89,15 @@ char *TKGetNextToken( TokenizerT * tk ) {
 
 int main(int argc, char **argv) {
     
-    TKCreate(argv[1]);
+    TokenizerT *token = TKCreate(argv[1]);
+    
+    while (token->numTokens > 0) {
+        
+    char *tk = TKGetNextToken(token);
+    /* label and print next token */
+        
+    }
+    
     
     return 0;
 }
