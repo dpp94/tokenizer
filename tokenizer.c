@@ -12,7 +12,7 @@
 
 struct TokenizerT_ {
     
-    long stringLength; 
+    long stringLength;
     char *string;
     int numTokens; /* represents number of tokens in string */
     
@@ -39,11 +39,13 @@ TokenizerT *TKCreate( char * ts ) {
     TokenizerT *token = malloc(sizeof(TokenizerT));
     
     token->string = ts;
-    token->stringLength = strlen(ts);
+    //token->stringLength = strlen(ts); //made it a comment to run the code
     
-    if (token != NULL) {  /* UNSURE of use of null */
+    if (token != NULL) {  /* UNSURE of use of null */ //you need this so program knows when to stop
+        printf("1\n");
         return token;
     }else{
+        printf("2");
         return NULL;
     }
 }
@@ -89,14 +91,36 @@ char *TKGetNextToken( TokenizerT * tk ) {
 
 int main(int argc, char **argv) {
     
-    TokenizerT *token = TKCreate(argv[1]);
+    char string[100];       //will remove this and 6 lines below once code is up and good
+    printf("Enter string: (hit enter twice after done entering)\n");
+    fgets(string, 100, stdin);
+    scanf("%[^\n]%*c", &string);
+    printf("\n");
+    argv[1] = string;
+    //printf("%s\n", argv[1]);
     
-    while (token->numTokens > 0) {
-        
-    char *tk = TKGetNextToken(token);
-    /* label and print next token */
-        
+    
+    if(argc == 2){ //****************** (argc != 2) *********** BEFORE SUBMITTING
+        printf("\nERROR: INVALID NUMBER OF ARGUMENTS\n");
+        printf("\nNEED: ./tokenizer \"today is a beautiful day\"\n");
+        return 0;
     }
+    
+    TokenizerT* tokenizer = TKCreate(argv[1]);
+    
+    if(tokenizer == NULL) {
+        printf("\nERROR: UNABLE TO CREATE TOKENIZER\n");
+    }
+    
+    char* token = NULL;
+    
+    //Print tokens
+    while((token = TKGetNextToken(tokenizer)) != NULL) {
+        printf("%s\n", token);
+        free(token);
+    }
+    
+    TKDestroy(tokenizer);
     
     
     return 0;
